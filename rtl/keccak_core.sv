@@ -20,7 +20,7 @@ module keccak_core (
      * This architecture splits the state array into 25 lanes of 64 bits.
      * See FIPS202 Section 3.1.1 for more information on state array.
      */
-    reg [24:0][63:0] state_array;
+    reg [4:0][4:0][63:0] state_array;
 
     // Each output requires 24 rounds of permutations (θ-theta, ρ, π, χ, ι)
     reg [4:0] round;
@@ -29,7 +29,7 @@ module keccak_core (
     reg en_theta, en_rho, en_pi, en_chi, en_iota;
 
     // Step Module Outputs
-    wire [24:0][63:0] theta_out, rho_out, pi_out, chi_out, iota_out;
+    wire [4:0][4:0][63:0] theta_out, rho_out, pi_out, chi_out, iota_out;
 
     // TODO: IMPLEMENT STEP MAPPING MODULES
     // Instantiate Step Mapping Modules
