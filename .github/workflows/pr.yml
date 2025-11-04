@@ -1,4 +1,4 @@
-name: VSIM Build
+name: PR - Verilog Build and Linter
 
 on:
   push:
@@ -63,3 +63,15 @@ jobs:
         run: |
           source env.sh
           make
+
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chipsalliance/verible-linter-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
