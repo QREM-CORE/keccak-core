@@ -15,7 +15,7 @@ module rho_step (
     // Rotation Offsets of 64 bit lanes
     // Y=0 goes right to Y=4
     // X=0 goes down to X=4
-    localparam int OFFSETS [0:4][0:4] = '{
+    localparam int OFFSETS [ROW_SIZE][COL_SIZE] = '{
         '{  0, 36,  3, 41, 18 },
         '{  1, 44, 10, 45,  2 },
         '{ 62,  6, 43, 15, 61 },
@@ -27,7 +27,7 @@ module rho_step (
      * Performs left rotation by 'shift' bits
      */
     function automatic [LANE_SIZE-1:0] left_rotate_lane (
-        input [LANE_SIZE-1:0] lane_i,
+        input logic [LANE_SIZE-1:0] lane_i,
         input int shift
     );
         // Use standard synthesizable bitwise shift and OR for rotation.
@@ -39,9 +39,10 @@ module rho_step (
     // Shift every lane by preset offset amount
     genvar x,y;
     generate
-        for (x=0; x<ROW_SIZE; x=x+1) begin
-            for (y=0; y<COL_SIZE; y=y+1) begin
-                assign state_array_out[x][y] = left_rotate_lane(state_array_in[x][y], OFFSETS[x][y]);
+        for (x=0; x<ROW_SIZE; x=x+1) begin : X_COL_GEN
+            for (y=0; y<COL_SIZE; y=y+1) begin : Y_ROW_GEN
+                assign state_array_out[x][y] = left_rotate_lane(state_array_in[x][y],
+                                                                OFFSETS[x][y]);
             end
         end
     endgenerate

@@ -20,7 +20,7 @@ module rho_step_tb();
     // ==========================================================
     // Task to print the Keccak state in FIPS-202 coordinate layout
     // ==========================================================
-    task print_state_fips(
+    task automatic print_state_fips(
         input logic [ROW_SIZE-1:0][COL_SIZE-1:0][LANE_SIZE-1:0] state
     );
         int y, x;
