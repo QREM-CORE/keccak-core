@@ -39,8 +39,8 @@ module rho_step (
     // Shift every lane by preset offset amount
     genvar x,y;
     generate
-        for (x=0; x<ROW_SIZE; x=x+1) begin : X_COL_GEN
-            for (y=0; y<COL_SIZE; y=y+1) begin : Y_ROW_GEN
+        for (x=0; x<ROW_SIZE; x=x+1) begin : g_rho_x_col
+            for (y=0; y<COL_SIZE; y=y+1) begin : g_rho_y_row
                 assign state_array_out[x][y] = left_rotate_lane(state_array_in[x][y],
                                                                 OFFSETS[x][y]);
             end
