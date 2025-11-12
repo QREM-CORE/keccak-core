@@ -4,13 +4,14 @@
  * Description: - ι (iota) step mapping is responsible for introducing round-dependent
  *                constants into the state to break symmetry between rounds.
  *              - Based off of FIPS202 Section 3.2.5
+ *              - We only input, modify, and output the (0, 0) 64-bit lane
  * NOTE: Purely combinational so far. Can be pipelined for higher clock speed if needed.
  */
 
 import keccak_pkg::*;
 
 module iota_step (
-    input   logic   [LANE_SIZE-1:0]         lane00_in,
+    input   logic   [LANE_SIZE-1:0]         lane00_in, // Only inputing the (0, 0) lane (64 bits)
     input   logic   [ROUND_INDEX_SIZE-1:0]  i_r, // Round Index 0-24
 
     output  logic   [LANE_SIZE-1:0]         lane00_out
